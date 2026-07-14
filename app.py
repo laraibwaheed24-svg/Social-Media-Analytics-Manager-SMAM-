@@ -16,7 +16,7 @@ FILE_NAME = "data.xlsx"
 # ----------------------------
 # Header
 # ----------------------------
-st.title("📊 Social Media Analytics Manager (SMAM)")
+st.title("📊 SocialTrack Pro")
 st.caption("### Automating Social Media Reporting & Analytics")
 
 st.divider()

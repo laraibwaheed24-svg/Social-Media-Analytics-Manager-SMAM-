@@ -223,8 +223,8 @@ elif page == "📊 Dashboard":
 
     elif page == "🏆 Employee Leaderboard":
 
-    st.title("🏆 Employee Leaderboard")
-    st.caption("Top Performing Employees")
+        st.title("🏆 Employee Leaderboard")
+        st.caption("Top Performing Employees")
     
 
     else:

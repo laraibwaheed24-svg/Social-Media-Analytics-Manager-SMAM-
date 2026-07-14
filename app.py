@@ -22,13 +22,15 @@ page = st.sidebar.radio(
 FILE_NAME = "data.xlsx"
 
 # ----------------------------
-# Header
+# Data Entry Page
 # ----------------------------
 
-st.title("📊 SocialTrack Pro")
-st.caption("### Automating Social Media Reporting & Analytics")
+if page == "📝 Data Entry":
 
-st.divider()
+    st.title("📊 SocialTrack Pro")
+    st.caption("### Automating Social Media Reporting & Analytics")
+
+    st.divider()
 
 # ----------------------------
 # Employee Information
@@ -105,11 +107,16 @@ if st.button("📤 Submit Report", use_container_width=True):
 
 
 
-st.divider()
+elif page == "📊 Dashboard":
 
-st.header("📊 Reports")
+    st.title("📊 Dashboard")
+    st.caption("Overview of Social Media Performance")
 
-if st.button("Generate Report"):
+    if os.path.exists(FILE_NAME):
+
+        df = pd.read_excel(FILE_NAME)
+
+    
 
     if os.path.exists(FILE_NAME):
 
@@ -141,25 +148,62 @@ if st.button("Generate Report"):
             tiktok_views
         )
 
-        st.subheader("Summary")
+        platform_views = {
+            "Twitter": twitter_views,
+            "Instagram": instagram_views,
+            "Facebook": facebook_views,
+            "TikTok": tiktok_views
+        }
 
-        st.write(f"Twitter Posts : {twitter_posts}")
-        st.write(f"Twitter Views : {twitter_views}")
+        best_platform = max(platform_views, key=platform_views.get)
 
-        st.write(f"Instagram Posts : {instagram_posts}")
-        st.write(f"Instagram Views : {instagram_views}")
+        col1, col2, col3, col4 = st.columns(4)
 
-        st.write(f"Facebook Posts : {facebook_posts}")
-        st.write(f"Facebook Views : {facebook_views}")
+        with col1:
+            st.metric("📝 Total Posts", total_posts)
 
-        st.write(f"TikTok Posts : {tiktok_posts}")
-        st.write(f"TikTok Views : {tiktok_views}")
+        with col2:
+            st.metric("👁️ Total Views", f"{total_views:,}")
+
+        with col3:
+            st.metric("👥 Employees", len(df))
+
+        with col4:
+            st.metric("🏆 Best Platform", best_platform)
 
         st.divider()
 
-        st.success(f"Grand Total Posts : {total_posts}")
+        summary = pd.DataFrame({
 
-        st.success(f"Grand Total Views : {total_views:,}")
+            "Platform": [
+                "Twitter",
+                "Instagram",
+                "Facebook",
+                "TikTok"
+            ],
+
+            "Posts": [
+                twitter_posts,
+                instagram_posts,
+                facebook_posts,
+                tiktok_posts
+            ],
+
+           "Views": [
+               twitter_views,
+               instagram_views,
+               facebook_views,
+               tiktok_views
+            ]
+        })
+
+        st.subheader("📊 Platform Summary")
+
+        st.dataframe(
+            summary,
+            use_container_width=True,
+            hide_index=True
+        )
 
     else:
 

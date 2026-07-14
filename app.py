@@ -221,7 +221,7 @@ elif page == "📊 Dashboard":
             hide_index=True
         )
 
-  elif page == "🏆 Employee Leaderboard":
+elif page == "🏆 Employee Leaderboard":
 
         st.title("🏆 Employee Leaderboard")
         st.caption("Top Performing Employees")
@@ -277,6 +277,6 @@ elif page == "📊 Dashboard":
         st.divider()
     
 
-    else:
+else:
 
-        st.warning("No reports found.")
+    st.warning("No reports found.")

@@ -1,4 +1,6 @@
 import streamlit as st
+import pandas as pd
+import os
 
 # ----------------------------
 # Page Configuration
@@ -8,6 +10,8 @@ st.set_page_config(
     page_icon="📊",
     layout="wide"
 )
+
+FILE_NAME = "data.xlsx"
 
 # ----------------------------
 # Header
@@ -29,14 +33,13 @@ employee_name = st.text_input(
 
 st.divider()
 
-# ----------------------------
-# Social Media Statistics
-# ----------------------------
 st.subheader("📱 Social Media Statistics")
 
 platforms = ["Twitter", "Instagram", "Facebook", "TikTok"]
 
-data = {}
+record = {
+    "Employee Name": employee_name
+}
 
 for platform in platforms:
 
@@ -60,27 +63,33 @@ for platform in platforms:
             key=f"{platform}_views"
         )
 
-    data[platform] = {
-        "Posts": posts,
-        "Views": views
-    }
+    record[f"{platform} Posts"] = posts
+    record[f"{platform} Views"] = views
 
 st.divider()
 
 # ----------------------------
-# Submit Button
+# Submit
 # ----------------------------
 if st.button("📤 Submit Report", use_container_width=True):
 
     if employee_name.strip() == "":
-        st.error("Please enter the employee name.")
+        st.error("Please enter employee name.")
 
     else:
 
-        st.success("Report submitted successfully!")
+        new_df = pd.DataFrame([record])
 
-        st.write("### Preview")
+        if os.path.exists(FILE_NAME):
+            old_df = pd.read_excel(FILE_NAME)
+            final_df = pd.concat([old_df, new_df], ignore_index=True)
+        else:
+            final_df = new_df
 
-        st.write(f"**Employee:** {employee_name}")
+        final_df.to_excel(FILE_NAME, index=False)
 
-        st.json(data)
+        st.success("✅ Report saved successfully!")
+
+        st.balloons()
+
+        st.dataframe(final_df)

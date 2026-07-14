@@ -11,11 +11,20 @@ st.set_page_config(
     layout="wide"
 )
 
+# ----------------------------
+# Sidebar Navigation
+# ----------------------------
+page = st.sidebar.radio(
+    "Navigation",
+    ["📝 Data Entry", "📊 Dashboard"]
+)
+
 FILE_NAME = "data.xlsx"
 
 # ----------------------------
 # Header
 # ----------------------------
+
 st.title("📊 SocialTrack Pro")
 st.caption("### Automating Social Media Reporting & Analytics")
 

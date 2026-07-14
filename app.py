@@ -225,6 +225,47 @@ elif page == "📊 Dashboard":
 
         st.title("🏆 Employee Leaderboard")
         st.caption("Top Performing Employees")
+
+    if os.path.exists(FILE_NAME):
+
+        df = pd.read_excel(FILE_NAME)
+
+    else:
+
+        st.warning("No employee records found.")
+        st.stop()
+
+    df["Total Posts"] = (
+        df["Twitter Posts"] +
+        df["Instagram Posts"] +
+        df["Facebook Posts"] +
+        df["TikTok Posts"]
+    )
+
+    df["Total Views"] = (
+        df["Twitter Views"] +
+        df["Instagram Views"] +
+        df["Facebook Views"] +
+        df["TikTok Views"]
+    )
+    leaderboard = df.sort_values(
+        by="Total Views",
+        ascending=False
+    ).reset_index(drop=True)
+    
+    st.subheader("🏅 Rankings")
+
+    st.dataframe(
+        leaderboard[
+            [
+                "Employee Name",
+                "Total Posts",
+                "Total Views"
+            ]
+        ],
+        use_container_width=True,
+        hide_index=True
+    )
     
 
     else:

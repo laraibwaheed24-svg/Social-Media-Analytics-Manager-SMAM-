@@ -207,6 +207,16 @@ elif page == "📊 Dashboard":
             hide_index=True
         )
 
+        st.divider()
+
+        st.subheader("📋 Employee Records")
+
+        st.dataframe(
+            df,
+            use_container_width=True,
+            hide_index=True
+        )
+
     else:
 
         st.warning("No reports found.")

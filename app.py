@@ -6,7 +6,7 @@ import os
 # Page Configuration
 # ----------------------------
 st.set_page_config(
-    page_title="Social Media Analytics Manager",
+    page_title="SocialTrack Pro",
     page_icon="📊",
     layout="wide"
 )

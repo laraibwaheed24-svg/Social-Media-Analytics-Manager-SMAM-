@@ -1,39 +1,86 @@
 import streamlit as st
 
-# -------------------------
+# ----------------------------
 # Page Configuration
-# -------------------------
+# ----------------------------
 st.set_page_config(
-    page_title="SocialTrack Pro",
+    page_title="Social Media Analytics Manager",
     page_icon="📊",
     layout="wide"
 )
 
-# -------------------------
+# ----------------------------
 # Header
-# -------------------------
-st.title("📊 SocialTrack Pro")
-st.subheader("Social Media Reporting & Analytics System")
+# ----------------------------
+st.title("📊 Social Media Analytics Manager (SMAM)")
+st.caption("Automating Social Media Reporting & Analytics")
 
-st.markdown("---")
+st.divider()
 
-st.write("""
-Welcome to **SocialTrack Pro**.
+# ----------------------------
+# Employee Information
+# ----------------------------
+st.subheader("👤 Employee Information")
 
-This application allows employees to submit their social media performance data while automatically generating reports and analytics for management.
+employee_name = st.text_input(
+    "Employee Name",
+    placeholder="Enter employee name"
+)
 
-### Supported Platforms
-- Twitter (X)
-- Instagram
-- Facebook
-- TikTok
+st.divider()
 
-### Coming Soon
-- Employee Data Entry
-- Excel Report Generation
-- Dashboard Analytics
-- AI Performance Insights
-- Charts & Visual Reports
-""")
+# ----------------------------
+# Social Media Statistics
+# ----------------------------
+st.subheader("📱 Social Media Statistics")
 
-st.success("🚀 Project initialized successfully!")
+platforms = ["Twitter", "Instagram", "Facebook", "TikTok"]
+
+data = {}
+
+for platform in platforms:
+
+    st.markdown(f"### {platform}")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        posts = st.number_input(
+            f"{platform} Posts",
+            min_value=0,
+            step=1,
+            key=f"{platform}_posts"
+        )
+
+    with col2:
+        views = st.number_input(
+            f"{platform} Views",
+            min_value=0,
+            step=1,
+            key=f"{platform}_views"
+        )
+
+    data[platform] = {
+        "Posts": posts,
+        "Views": views
+    }
+
+st.divider()
+
+# ----------------------------
+# Submit Button
+# ----------------------------
+if st.button("📤 Submit Report", use_container_width=True):
+
+    if employee_name.strip() == "":
+        st.error("Please enter the employee name.")
+
+    else:
+
+        st.success("Report submitted successfully!")
+
+        st.write("### Preview")
+
+        st.write(f"**Employee:** {employee_name}")
+
+        st.json(data)

@@ -14,8 +14,10 @@ st.set_page_config(
 # ----------------------------
 # Sidebar Navigation
 # ----------------------------
+st.sidebar.title("📂 Navigation")
+
 page = st.sidebar.radio(
-    "Navigation",
+    "",
     ["📝 Data Entry", "📊 Dashboard"]
 )
 

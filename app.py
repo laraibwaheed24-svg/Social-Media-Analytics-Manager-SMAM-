@@ -253,19 +253,28 @@ elif page == "📊 Dashboard":
         ascending=False
     ).reset_index(drop=True)
     
-    st.subheader("🏅 Rankings")
+    st.subheader("🏅 Top Performers")
 
-    st.dataframe(
-        leaderboard[
-            [
-                "Employee Name",
-                "Total Posts",
-                "Total Views"
-            ]
-        ],
-        use_container_width=True,
-        hide_index=True
-    )
+    medals = ["🥇", "🥈", "🥉"]
+
+    for i, row in leaderboard.iterrows():
+
+        if i < 3:
+            medal = medals[i]
+        else:
+            medal = f"#{i+1}"
+
+        st.markdown(f"## {medal} {row['Employee Name']}")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric("📝 Total Posts", int(row["Total Posts"]))
+
+        with col2:
+            st.metric("👁️ Total Views", f"{int(row['Total Views']):,}")
+
+        st.divider()
     
 
     else:

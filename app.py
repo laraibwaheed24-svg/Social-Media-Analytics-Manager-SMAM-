@@ -257,12 +257,13 @@ elif page == "🏆 Employee Leaderboard":
 
     medals = ["🥇", "🥈", "🥉"]
 
-    for i, row in leaderboard.iterrows():
+    top3 = leaderboard.head(3)
 
-        if i < 3:
-            medal = medals[i]
-        else:
-            medal = f"#{i+1}"
+    for i, row in top3.iterrows():
+
+        medals = ["🥇", "🥈", "🥉"]
+
+        medal = medals[i]
 
         st.markdown(f"## {medal} {row['Employee Name']}")
 
@@ -277,6 +278,3 @@ elif page == "🏆 Employee Leaderboard":
         st.divider()
     
 
-else:
-
-    st.warning("No reports found.")

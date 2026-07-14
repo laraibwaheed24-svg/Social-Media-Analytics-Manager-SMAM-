@@ -18,7 +18,11 @@ st.sidebar.title("📂 Navigation")
 
 page = st.sidebar.radio(
     "",
-    ["📝 Data Entry", "📊 Dashboard"]
+    [
+        "📝 Data Entry",
+        "📊 Dashboard",
+        "🏆 Employee Leaderboard"
+    ]
 )
 
 FILE_NAME = "data.xlsx"
@@ -216,6 +220,12 @@ elif page == "📊 Dashboard":
             use_container_width=True,
             hide_index=True
         )
+
+    elif page == "🏆 Employee Leaderboard":
+
+    st.title("🏆 Employee Leaderboard")
+    st.caption("Top Performing Employees")
+    
 
     else:
 

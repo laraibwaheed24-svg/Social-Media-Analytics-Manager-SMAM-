@@ -22,6 +22,7 @@ page = st.sidebar.radio(
         "📝 Data Entry",
         "📊 Dashboard",
         "🏆 Employee Leaderboard"
+        "⚙️ Data Management"
     ]
 )
 
@@ -117,10 +118,6 @@ elif page == "📊 Dashboard":
 
     st.title("📊 Dashboard")
     st.caption("Overview of Social Media Performance")
-
-    if os.path.exists(FILE_NAME):
-
-        df = pd.read_excel(FILE_NAME)
 
     
 
@@ -276,4 +273,45 @@ elif page == "🏆 Employee Leaderboard":
             st.metric("👁️ Total Views", f"{int(row['Total Views']):,}")
 
         st.divider()
+
+elif page == "⚙️ Data Management":
+
+    st.title("⚙️ Data Management")
+    st.caption("Manage application data safely.")
+
+    st.divider()
+
+    if os.path.exists(FILE_NAME):
+        df = pd.read_excel(FILE_NAME)
+
+        st.info(f"📄 Total Records: {len(df)}")
+        st.info(f"📁 File Name: {FILE_NAME}")
+
+    else:
+        st.warning("No data file found.")
+
+    st.divider()
+
+    st.warning("⚠️ This action cannot be undone!")
+
+    confirm = st.checkbox(
+        "I understand that all employee records will be permanently deleted."
+    )
+
+    if st.button("🗑️ Reset All Data", use_container_width=True):
+
+        if confirm:
+
+            if os.path.exists(FILE_NAME):
+                os.remove(FILE_NAME)
+
+                st.success("✅ All records have been deleted successfully.")
+
+                st.rerun()
+
+            else:
+                st.info("No data available to delete.")
+
+        else:
+            st.error("Please check the confirmation box first.")
 

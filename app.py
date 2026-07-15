@@ -21,7 +21,7 @@ page = st.sidebar.radio(
     [
         "📝 Data Entry",
         "📊 Dashboard",
-        "🏆 Employee Leaderboard"
+        "🏆 Employee Leaderboard",
         "⚙️ Data Management"
     ]
 )

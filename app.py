@@ -178,6 +178,25 @@ elif page == "📊 Dashboard":
             st.metric("🏆 Best Platform", best_platform)
 
         st.divider()
+        st.subheader("⚠️ Data Management")
+
+        confirm_reset = st.checkbox(
+            "I understand that this will permanently delete all records."
+        )
+        if st.button("🗑️ Reset All Data", use_container_width=True):
+
+            if confirm_reset:
+
+                if os.path.exists(FILE_NAME):
+                    os.remove(FILE_NAME)
+
+            st.success("✅ All records have been deleted.")
+
+            st.rerun()
+
+    else:
+
+        st.error("Please confirm before resetting the data.")
 
         summary = pd.DataFrame({
 
